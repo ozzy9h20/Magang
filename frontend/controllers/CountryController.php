@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Country;
 use frontend\models\CountrySearch;
+use frontend\models\SearchSubcountry;
 use frontend\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\web\Controller;
@@ -57,8 +58,17 @@ class CountryController extends Controller
      */
     public function actionView($code)
     {
+        $searchModel = new SearchSubcountry();
+
+        $dataProvider = $searchModel->search($this->request->queryParams, $code);
+        // $dataProvider = $searchModel->search($this->request->queryParams)->where(['country_code' => $code]);
+        // var_dump($searchModel->search($this->request->queryParams));
+        // var_dump($this->request->queryParams);
+
         return $this->render('view', [
             'model' => $this->findModel($code),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
