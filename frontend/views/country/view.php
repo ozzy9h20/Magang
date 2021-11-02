@@ -18,7 +18,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    
     <p>
+        <?= 
+            $model->imageURL 
+                ? Html::img('../uploads/' . $model->imageURL, [
+                    'class' => 'img-fluid img-thumbnail', 
+                    'alt' => $model->name,
+                    'style' => 'width: 500px',
+                ]) 
+                : Html::img('../uploads/placeholder', [
+                    'class' => 'img-fluid img-thumbnail',
+                    'style' => 'width: 500px',
+                ]);
+        ?>
+        <hr />
         <?= Html::a('<i class="fa fa-pencil-alt"></i> Update', ['update', 'id' => $model->code], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('<i class="fa fa-trash"></i> Delete', ['delete', 'id' => $model->code], [
             'class' => 'btn btn-danger',
@@ -36,7 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             'name',
             'population',
-            'imageURL',
+            [
+                'label' => 'ImageURL',
+                'value' => $model->imageURL ? 'uploads/'.$model->imageURL : 'Belum Ada',
+            ]
         ],
     ]) ?>
 
