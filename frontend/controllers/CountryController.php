@@ -52,9 +52,8 @@ class CountryController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($code)   
     {
-        $code = $id;
         return $this->render('view', [
             'model' => $this->findModel($code),
         ]);
@@ -71,7 +70,7 @@ class CountryController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->code]);
+                return $this->redirect(['view', 'code' => $model->code]);
             }
         } else {
             $model->loadDefaultValues();
@@ -89,13 +88,12 @@ class CountryController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($code)
     {
-        $code = $id;
         $model = $this->findModel($code);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->code]);
+            return $this->redirect(['view', 'code' => $model->code]);
         }
 
         return $this->render('update', [
@@ -110,9 +108,8 @@ class CountryController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($code)
     {
-        $code = $id;
         $this->findModel($code)->delete();
 
         return $this->redirect(['index']);
@@ -125,9 +122,8 @@ class CountryController extends Controller
      * @return Country the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($code)
     {
-        $code = $id;
         if (($model = Country::findOne($code)) !== null) {
             return $model;
         }
