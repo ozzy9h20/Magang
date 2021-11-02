@@ -2,8 +2,11 @@
 
 namespace frontend\controllers;
 
+use Yii;
 use frontend\models\Country;
 use frontend\models\CountrySearch;
+use frontend\models\UploadForm;
+use yii\web\UploadedFile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,7 +55,7 @@ class CountryController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($code)   
+    public function actionView($code)
     {
         return $this->render('view', [
             'model' => $this->findModel($code),
@@ -129,5 +132,30 @@ class CountryController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $id = Yii::$app->request->get()['id'];
+            $country = Country::findOne($id);
+            echo $country->name;
+            
+            $img = UploadedFile::getInstance($model, 'imageFile');
+            $country->imageURL = $img->name;
+
+            var_dump($img->name);
+            
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                $country->save();
+                // file is uploaded successfully
+                return $this->redirect(['view', 'code' => $id]);
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
     }
 }

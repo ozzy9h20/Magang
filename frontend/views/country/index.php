@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use kartik\icons\Icon;
-Icon::map($this);  
+Icon::map($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\CountrySearch */
