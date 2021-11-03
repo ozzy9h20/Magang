@@ -38,10 +38,15 @@ class SearchSubcountry extends Subcountry
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $code)
+    public function search($params, $code = false)
     {
-        $query = Subcountry::find()
+        if ($code) {
+            $query = Subcountry::find()
             ->where(['country_code'=> $code]);    
+        }
+        else {
+            $query = Subcountry::find();
+        }
 
         // add conditions that should always apply here
 

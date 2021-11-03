@@ -7,7 +7,8 @@ use yii\widgets\ActiveForm;
 /* @var $model frontend\models\Subcountry */
 
 $this->title = 'Update Subcountry: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Subcountries', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Countries', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->country_code, 'url' => ['country/view', 'code' => $model->country_code]];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

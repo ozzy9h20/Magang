@@ -7,6 +7,12 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Subcountry */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Countries', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->country_code, 'url' => ['country/view', 'code' => $model->country_code]];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'View';
+
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="subcountry-view">
